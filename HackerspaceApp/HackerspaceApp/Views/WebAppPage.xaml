@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HackerspaceApp.Views.WebAppPage"
+             xmlns:hwv="clr-namespace:HackerspaceApp.Helpers.HybridWebView"
+             NavigationPage.HasNavigationBar="False"
+             Visual="Material">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Black">
+            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
+                <Label Text="hackerspace/" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
+                <Label Text="{Binding WebApp.Title}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
+            </StackLayout>
+            <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding WebApp.Url}" Margin="5, 50, 5, 5"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

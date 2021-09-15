@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HackerspaceApp.Views.AppConfigPage"
+             NavigationPage.HasNavigationBar="False"
+             Visual="Material">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Black">
+            <Label Text="hackerspace/config" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
+            <Editor Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5, 50, 5, 40"/>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button Text="Save" Command="{Binding SaveConfigurationCommand}" VerticalOptions="End"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
