@@ -3,15 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HackerspaceApp.Views.WebAppPage"
              xmlns:hwv="clr-namespace:HackerspaceApp.Helpers.HybridWebView"
+             xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
              NavigationPage.HasNavigationBar="False"
              Visual="Material">
     <ContentPage.Content>
-        <Grid BackgroundColor="Black">
-            <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
-                <Label Text="hackerspace/" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
-                <Label Text="{Binding WebApp.Title}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
-            </StackLayout>
-            <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding WebApp.Url}" Margin="5, 50, 5, 5"/>
+        <Grid BackgroundColor="Black" HorizontalOptions="Fill">
+            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="30" HeightRequest="30" Margin="5">
+                <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="15" HeightRequest="30" MinimumHeightRequest="30" WidthRequest="30" MinimumWidthRequest="30" HorizontalOptions="Start" VerticalOptions="Start">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBackCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.ChevronLeft}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+
+                <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="hackerspace/" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="{Binding WebApp.Title}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+
+            <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding Url}" Margin="5, 50, 5, 5"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

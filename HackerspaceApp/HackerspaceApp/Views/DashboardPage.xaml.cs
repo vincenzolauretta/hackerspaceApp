@@ -19,5 +19,12 @@ namespace HackerspaceApp.Views
 
             this.BindingContext = new DashboardViewModel(this.Navigation);
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+
+            return true;
+        }
     }
 }

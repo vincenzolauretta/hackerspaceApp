@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace HackerspaceApp.ViewModels
@@ -22,6 +24,21 @@ namespace HackerspaceApp.ViewModels
                 }
             }
         }
+        string _Url;
+        public string Url
+        {
+            get { return _Url; }
+            set
+            {
+                if (_Url != value)
+                {
+                    _Url = value;
+                    OnPropertyChanged(nameof(Url));
+                }
+            }
+        }
+
+        private string SessionGuid { get; set; }
 
 
         public WebAppViewModel(INavigation navigation, WebAppConfigModel webAppConfig)
@@ -33,9 +50,55 @@ namespace HackerspaceApp.ViewModels
             InitAsync();
         }
 
-        async Task InitAsync()
+        public async Task InitAsync()
         {
+            this.Url = WebApp.Url;
 
+            if (WebApp.AutoRefresh > 0)
+            {
+                SessionGuid = Guid.NewGuid().ToString();
+
+                string taskGuid = SessionGuid;
+
+                while (taskGuid == SessionGuid)
+                {
+                    await Task.Delay(WebApp.AutoRefresh * 1000);
+
+                    if (taskGuid != SessionGuid)
+                        break;
+
+                    this.Url = null;
+                    this.Url = WebApp?.Url;
+                }
+            }
         }
+
+        public void UnloadResources()
+        {
+            SessionGuid = null;
+            this.Url = null;
+        }
+
+
+        RelayCommand _NavigateBackCommand;
+        public ICommand NavigateBackCommand
+        {
+            get
+            {
+                if (_NavigateBackCommand == null)
+                {
+                    _NavigateBackCommand = new RelayCommand(async param =>
+                    {
+                        await Navigation?.PopModalAsync();
+
+                        this.UnloadResources();
+
+                    }, param => true);
+                }
+                return _NavigateBackCommand;
+            }
+        }
+
+
     }
 }

@@ -75,6 +75,12 @@ namespace HackerspaceApp.ViewModels
 
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Title = "Cam",
+                Url = "http://cam.hackerspace.sg",
+                AutoRefresh = 3
+            });
+            config.WebApps.Add(new WebAppConfigModel()
+            {
                 Title = "Google",
                 Url = "https://www.google.com"
             });

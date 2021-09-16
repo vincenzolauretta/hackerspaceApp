@@ -79,5 +79,22 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+        RelayCommand _NavigateBackCommand;
+        public ICommand NavigateBackCommand
+        {
+            get
+            {
+                if (_NavigateBackCommand == null)
+                {
+                    _NavigateBackCommand = new RelayCommand(async param =>
+                    {
+                        await Navigation?.PopModalAsync();
+
+                    }, param => true);
+                }
+                return _NavigateBackCommand;
+            }
+        }
+
     }
 }

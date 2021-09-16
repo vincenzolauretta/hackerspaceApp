@@ -2,11 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HackerspaceApp.Views.AppConfigPage"
+             xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
              NavigationPage.HasNavigationBar="False"
              Visual="Material">
     <ContentPage.Content>
         <Grid BackgroundColor="Black">
-            <Label Text="hackerspace/config" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Start"/>
+            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="30" HeightRequest="30" Margin="5">
+                <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="15" HeightRequest="30" MinimumHeightRequest="30" WidthRequest="30" MinimumWidthRequest="30" HorizontalOptions="Start" VerticalOptions="Start">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateBackCommand}"/>
+                    </Frame.GestureRecognizers>
+                    <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.ChevronLeft}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+                <Label Text="hackerspace/config" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
             <Editor Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5, 50, 5, 40"/>
             <StackLayout Orientation="Horizontal" VerticalOptions="End">
                 <Button Text="Save" Command="{Binding SaveConfigurationCommand}" VerticalOptions="End"/>

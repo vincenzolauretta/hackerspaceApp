@@ -8,6 +8,9 @@ namespace HackerspaceApp
 {
     public partial class App : Application
     {
+        public static event EventHandler AppOnStart;
+        public static event EventHandler AppOnSleep;
+        public static event EventHandler AppOnResume;
 
         public App()
         {
@@ -21,14 +24,17 @@ namespace HackerspaceApp
 
         protected override void OnStart()
         {
+            AppOnStart?.Invoke(null, null);
         }
 
         protected override void OnSleep()
         {
+            AppOnSleep?.Invoke(null, null);
         }
 
         protected override void OnResume()
         {
+            AppOnResume?.Invoke(null, null);
         }
     }
 }

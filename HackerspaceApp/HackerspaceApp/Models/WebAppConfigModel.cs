@@ -8,5 +8,6 @@ namespace HackerspaceApp.Models
     {
         public string Title { get; set; }
         public string Url { get; set; }
+        public int AutoRefresh { get; set; }
     }
 }
