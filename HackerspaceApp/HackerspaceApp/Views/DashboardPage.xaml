@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <Grid BackgroundColor="Black">
             <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="30" HeightRequest="30" Margin="5">
-                <Label Text="hackerspace" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                 <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="15" HeightRequest="30" MinimumHeightRequest="30" WidthRequest="30" MinimumWidthRequest="30" HorizontalOptions="End" VerticalOptions="Start">
                     <Frame.GestureRecognizers>

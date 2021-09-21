@@ -17,8 +17,8 @@
                 </Frame>
 
                 <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="hackerspace/" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label Text="{Binding WebApp.Title}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace/" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="{Binding WebApp.Title}" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </StackLayout>
             </Grid>
 

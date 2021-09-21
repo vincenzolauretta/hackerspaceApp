@@ -89,9 +89,9 @@ namespace HackerspaceApp.ViewModels
                 {
                     _NavigateBackCommand = new RelayCommand(async param =>
                     {
-                        await Navigation?.PopModalAsync();
-
                         this.UnloadResources();
+
+                        await Navigation?.PopModalAsync();
 
                     }, param => true);
                 }

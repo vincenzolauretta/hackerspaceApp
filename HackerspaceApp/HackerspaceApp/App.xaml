@@ -11,7 +11,11 @@
                 <On Platform="iOS" Value="Font Awesome 5 Free" />
                 <On Platform="Android" Value="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free" />
             </OnPlatform>
-            <Color x:Key="Primary">#2196F3</Color>
+            <OnPlatform x:Key="CrackedCodeFontFamily" x:TypeArguments="x:String">
+                <On Platform="iOS" Value="Cracked Code" />
+                <On Platform="Android" Value="Cracked Code.ttf#Cracked Code" />
+            </OnPlatform>
+            <Color x:Key="Primary">#000000</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">

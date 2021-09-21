@@ -14,7 +14,7 @@
                     </Frame.GestureRecognizers>
                     <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.ChevronLeft}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>
-                <Label Text="hackerspace/config" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace/config" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
             </Grid>
             <Editor Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5, 50, 5, 40"/>
             <StackLayout Orientation="Horizontal" VerticalOptions="End">

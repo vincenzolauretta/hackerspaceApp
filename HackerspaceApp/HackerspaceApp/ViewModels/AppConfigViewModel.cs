@@ -62,10 +62,20 @@ namespace HackerspaceApp.ViewModels
                                 return;
                             }
 
+                            // fixing null lists
+                            if (appConfig.WebApps == null)
+                                appConfig.WebApps = new List<WebAppConfigModel>();
+
+                            if (appConfig.WebHooks == null)
+                                appConfig.WebHooks = new List<WebHookConfigModel>();
+
+                            // save config
                             await SecureStorage.SetAsync("ApplicationConfig", Configuration);
 
+                            // navigate to previous page
                             await this.Navigation?.PopModalAsync();
 
+                            // reload dashboard (this should be moved to OnAppearing of DashboardPage)
                             await _dashboardViewModel.InitAsync();
                         }
                         catch (Exception)
