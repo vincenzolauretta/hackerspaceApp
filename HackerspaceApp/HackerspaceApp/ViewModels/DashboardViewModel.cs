@@ -106,6 +106,9 @@ namespace HackerspaceApp.ViewModels
         {
             var config = new ApplicationConfigModel();
 
+            config.SplashLogo = "https://hackerspace.sg/imgs/banner.png";
+            config.SplashBackgroundColor = "#f0f0f0";
+
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",

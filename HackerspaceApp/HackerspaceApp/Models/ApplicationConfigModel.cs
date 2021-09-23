@@ -6,6 +6,8 @@ namespace HackerspaceApp.Models
 {
     public class ApplicationConfigModel
     {
+        public string SplashBackgroundColor { get; set; }
+        public string SplashLogo { get; set; }
         public List<DashboardItemModel> DashboardItems { get; set; }
         public List<WebAppConfigModel> WebApps { get; set; }
         public List<WebHookConfigModel> WebHooks { get; set; }
