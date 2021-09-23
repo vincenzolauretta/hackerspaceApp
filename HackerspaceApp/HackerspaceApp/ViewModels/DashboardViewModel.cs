@@ -16,35 +16,19 @@ namespace HackerspaceApp.ViewModels
 {
     public class DashboardViewModel : BaseViewModel
     {
-        ObservableCollection<WebAppConfigModel> _WebApps;
-        public ObservableCollection<WebAppConfigModel> WebApps
+        ObservableCollection<DashboardGroupViewModel> _Groups;
+        public ObservableCollection<DashboardGroupViewModel> Groups
         {
-            get { return _WebApps; }
+            get { return _Groups; }
             set
             {
-                if (_WebApps != value)
+                if (_Groups != value)
                 {
-                    _WebApps = value;
-                    OnPropertyChanged(nameof(WebApps));
+                    _Groups = value;
+                    OnPropertyChanged(nameof(Groups));
                 }
             }
         }
-
-        ObservableCollection<WebHookViewModel> _WebHooks;
-        public ObservableCollection<WebHookViewModel> WebHooks
-        {
-            get { return _WebHooks; }
-            set
-            {
-                if (_WebHooks != value)
-                {
-                    _WebHooks = value;
-                    OnPropertyChanged(nameof(WebHooks));
-                }
-            }
-        }
-
-
 
 
         public DashboardViewModel(INavigation navigation)
@@ -84,43 +68,165 @@ namespace HackerspaceApp.ViewModels
                 appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
             }
 
-            WebApps = new ObservableCollection<WebAppConfigModel>(appConfig.WebApps);
+            Groups = new ObservableCollection<DashboardGroupViewModel>();
 
-            WebHooks = new ObservableCollection<WebHookViewModel>();
-            foreach (var group in appConfig.WebHooks.GroupBy(z=>z.Title))
+            var dashboardItemsGroups = appConfig.DashboardItems
+                .Select(z => z.GroupName)
+                .Distinct();
+
+            foreach (var g in dashboardItemsGroups)
             {
-                var webHook = new WebHookViewModel();
-                foreach (var item in group)
+                Groups.Add(new DashboardGroupViewModel()
                 {
+                    Title = g
+                });
+            }
 
+            foreach (var g in Groups)
+            {
+                var items = appConfig.DashboardItems
+                    .Where(z => z.GroupName == g.Title);
+
+                foreach (var item in items)
+                {
+                    var id = item.Id;
+
+                    var obj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
+
+                    if (obj != null)
+                    {
+                        g.Items.Add(obj);
+                    }
                 }
             }
+
         }
 
         private ApplicationConfigModel CreateDefaultConfiguration()
         {
             var config = new ApplicationConfigModel();
 
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "cam",
+                Title = "Cam"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Space",
+                Id = "site",
+                Title = "Hackerspace"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Printers",
+                Id = "dymo",
+                Title = "Dymo Printer"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links",
+                Id = "google",
+                Title = "Google"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links2",
+                Id = "google",
+                Title = "Google"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links3",
+                Id = "google",
+                Title = "Google"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links4",
+                Id = "google",
+                Title = "Google"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links5",
+                Id = "google",
+                Title = "Google"
+            });
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "Useful links6",
+                Id = "google",
+                Title = "Google"
+            });
+
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Id = "cam",
                 Title = "Cam",
                 Url = "http://cam.hackerspace.sg",
                 AutoRefresh = 3
             });
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Id = "google",
                 Title = "Google",
                 Url = "https://www.google.com"
             });
 
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Id = "site",
                 Title = "Hackerspace",
                 Url = "https://hackerspace.sg"
             });
 
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Id = "dymo",
                 Title = "Dymo Printer",
                 Url = "http://192.168.6.148:8080/"
             });

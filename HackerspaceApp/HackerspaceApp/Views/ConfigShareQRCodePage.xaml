@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HackerspaceApp.Views.AppConfigPage"
+             x:Class="HackerspaceApp.Views.ConfigShareQRCodePage"
              xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
              NavigationPage.HasNavigationBar="False"
              Visual="Material">
@@ -16,12 +16,9 @@
                 </Frame>
                 <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace/config" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
             </Grid>
-            <Editor Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5, 50, 5, 40"/>
-            <StackLayout Orientation="Horizontal" VerticalOptions="End">
-                <Button Text="Save" Command="{Binding SaveConfigurationCommand}" VerticalOptions="End"/>
-                <Button Text="Share" Command="{Binding ShareConfigurationCommand}" VerticalOptions="End"/>
-                <Button Text="Scan" Command="{Binding ScanConfigurationCommand}" VerticalOptions="End"/>
-            </StackLayout>
+            <Grid BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center" Margin="0">
+                <Image Source="{Binding QRCode}" VerticalOptions="Center" HorizontalOptions="Center" Margin="5"/>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

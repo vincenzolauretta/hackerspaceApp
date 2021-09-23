@@ -1,4 +1,5 @@
 ﻿using HackerspaceApp.Models;
+using HackerspaceApp.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -89,6 +90,44 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+
+        RelayCommand _ScanConfigurationCommand;
+        public ICommand ScanConfigurationCommand
+        {
+            get
+            {
+                if (_ScanConfigurationCommand == null)
+                {
+                    _ScanConfigurationCommand = new RelayCommand(async param =>
+                    {
+                        var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+
+                        var result = await scanner.Scan();
+
+                        if (result != null)
+                        {
+                            var potentialJson = result.Text;
+
+                            try
+                            {
+                                var obj = JsonConvert.DeserializeObject(potentialJson);
+
+                                Configuration = JsonConvert.SerializeObject(obj, Formatting.Indented);
+
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+                        }
+
+                    }, param => true);
+                }
+                return _ScanConfigurationCommand;
+            }
+        }
+
+
         RelayCommand _NavigateBackCommand;
         public ICommand NavigateBackCommand
         {
@@ -105,6 +144,25 @@ namespace HackerspaceApp.ViewModels
                 return _NavigateBackCommand;
             }
         }
+
+
+        RelayCommand _ShareConfigurationCommand;
+        public ICommand ShareConfigurationCommand
+        {
+            get
+            {
+                if (_ShareConfigurationCommand == null)
+                {
+                    _ShareConfigurationCommand = new RelayCommand(async param =>
+                    {
+                        await Navigation?.PushModalAsync(new ConfigShareQRCodePage());
+
+                    }, param => true);
+                }
+                return _ShareConfigurationCommand;
+            }
+        }
+
 
     }
 }
