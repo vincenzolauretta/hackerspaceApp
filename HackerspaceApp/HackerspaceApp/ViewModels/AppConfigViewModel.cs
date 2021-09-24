@@ -1,4 +1,5 @@
-﻿using HackerspaceApp.Models;
+﻿using HackerspaceApp.Helpers;
+using HackerspaceApp.Models;
 using HackerspaceApp.Views;
 using Newtonsoft.Json;
 using System;
@@ -106,10 +107,12 @@ namespace HackerspaceApp.ViewModels
 
                         if (result != null)
                         {
-                            var potentialJson = result.Text;
+                            var potentialCompressedJson = result.Text;
 
                             try
                             {
+                                var potentialJson = Compression.Unzip(Convert.FromBase64String(potentialCompressedJson));
+
                                 var obj = JsonConvert.DeserializeObject(potentialJson);
 
                                 Configuration = JsonConvert.SerializeObject(obj, Formatting.Indented);

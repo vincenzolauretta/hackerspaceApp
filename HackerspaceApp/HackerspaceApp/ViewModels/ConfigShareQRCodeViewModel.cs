@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using HackerspaceApp.Helpers;
+using Newtonsoft.Json;
 using QRCoder;
 using System;
 using System.Collections.Generic;
@@ -47,8 +48,12 @@ namespace HackerspaceApp.ViewModels
 
             int qrLength = configJson.Length;
 
+            var compressedJson = Convert.ToBase64String(Compression.Zip(configJson));
+            int compressedLength = compressedJson.Length;
+
+
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(configJson, QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(compressedJson, QRCodeGenerator.ECCLevel.Q);
 
             PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
             var qrCodeBytes = qrCode.GetGraphic(20);

@@ -37,7 +37,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Font Awesome 5 Free-Solid-900.otf</string>
-    <string>Cracked Code.ttf</string>
+		<string>Cracked Code.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>
