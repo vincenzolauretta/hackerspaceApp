@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -101,7 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HackerspaceApp\HackerspaceApp.csproj">
-      <Project>{3F556670-D614-47FF-8CA4-8ACFDD702D33}</Project>
+      <Project>{0ACBD355-4D07-4578-A279-CBB0C196F8AC}</Project>
       <Name>HackerspaceApp</Name>
     </ProjectReference>
   </ItemGroup>

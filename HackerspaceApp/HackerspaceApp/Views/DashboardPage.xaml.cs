@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace HackerspaceApp.Views
@@ -16,6 +17,8 @@ namespace HackerspaceApp.Views
         public DashboardPage()
         {
             InitializeComponent();
+
+            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
 
             this.BindingContext = new DashboardViewModel(this.Navigation);
         }
