@@ -201,9 +201,9 @@ namespace HackerspaceApp.ViewModels
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
-                GroupName = "Useful links6",
-                Id = "google",
-                Title = "Google"
+                GroupName = "Test",
+                Id = "selfsigned",
+                Title = "Self-signed certificate"
             });
 
             config.WebApps.Add(new WebAppConfigModel()
@@ -232,6 +232,12 @@ namespace HackerspaceApp.ViewModels
                 Id = "dymo",
                 Title = "Dymo Printer",
                 Url = "http://192.168.6.148:8080/"
+            });
+            config.WebApps.Add(new WebAppConfigModel()
+            {
+                Id = "selfsigned",
+                Title = "Self Signed",
+                Url = "https://self-signed.badssl.com"
             });
 
             return config;
