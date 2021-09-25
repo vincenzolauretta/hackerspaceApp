@@ -18,7 +18,11 @@
                     <Label Margin="5, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="config" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
             </Grid>
-            <Editor BackgroundColor="White"  Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="5, 70, 5, 40"/>
+            <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5, 70, 5, 40">
+                <Grid>
+                    <Editor BackgroundColor="White"  Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" AutoSize="TextChanges" />
+                </Grid>
+            </ScrollView>
             <StackLayout Orientation="Horizontal" VerticalOptions="End">
                 <Button Text="Save" Command="{Binding SaveConfigurationCommand}" VerticalOptions="End"/>
                 <Button Text="Share" Command="{Binding ShareConfigurationCommand}" VerticalOptions="End"/>

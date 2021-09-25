@@ -77,6 +77,7 @@
     <BundleResource Include="Resources\Font Awesome 5 Free-Solid-900.otf" />
     <BundleResource Include="Resources\Cracked Code.ttf" />
     <BundleResource Include="Resources\OpenSans-SemiBold.ttf" />
+    <BundleResource Include="Resources\logo_hackerspace_semi_transparent.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
