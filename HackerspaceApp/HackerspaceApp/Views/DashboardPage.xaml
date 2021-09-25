@@ -28,36 +28,58 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid BackgroundColor="Black">
-            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="50" HeightRequest="50" Margin="0">
+            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="60" HeightRequest="60" Margin="0" Padding="0, 10, 0, 0">
                 <!--<Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>-->
                 <StackLayout Orientation="Horizontal" Margin="5, 0, 0, 0">
                     <Label Margin="20, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="hackerspace" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0, 0, 5, 0">
-                    <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="15" HeightRequest="30" MinimumHeightRequest="30" WidthRequest="30" MinimumWidthRequest="30" HorizontalOptions="End" VerticalOptions="Center">
+                    <Frame HasShadow="False" BackgroundColor="#3e3e3e" CornerRadius="20" HeightRequest="40" MinimumHeightRequest="40" HorizontalOptions="End" VerticalOptions="Center" Padding="10, 0, 10, 0">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding EditConfigurationCommand}"/>
                         </Frame.GestureRecognizers>
-                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Cogs}" TextColor="White" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Cogs}" TextColor="White" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label FontFamily="{StaticResource OpenSansFontFamily}" Text="config" TextColor="White" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </StackLayout>
                     </Frame>
                 </StackLayout>
             </Grid>
 
-            <CollectionView ItemsSource="{Binding Groups}" Margin="0, 70, 0, 0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Margin="0, 0, 0, 20" Spacing="0">
-                            <Label Text="{Binding Title}" TextColor="White" FontSize="18" Margin="15, 0, 0, 0" />
-                            <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{StaticResource dashboardItemDataTemplateSelector}" HeightRequest="120" MinimumHeightRequest="120">
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal" />
-                                </CollectionView.ItemsLayout>
-                            </CollectionView>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <ScrollView Padding="0, 50, 0, 0" Margin="0, 70, 0, 0" VerticalOptions="FillAndExpand">
+                <Grid VerticalOptions="Start">
+                    <StackLayout BindableLayout.ItemsSource="{Binding Groups}" VerticalOptions="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0, 0, 0, 20" Spacing="0">
+                                    <Label Text="{Binding Title}" TextColor="White" FontSize="18" Margin="15, 0, 0, 0" />
+                                    <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{StaticResource dashboardItemDataTemplateSelector}" HeightRequest="120" MinimumHeightRequest="120">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                    </CollectionView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <!--<CollectionView ItemsSource="{Binding Groups}" VerticalOptions="FillAndExpand">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Margin="0, 0, 0, 20" Spacing="0">
+                                    <Label Text="{Binding Title}" TextColor="White" FontSize="18" Margin="15, 0, 0, 0" />
+                                    <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{StaticResource dashboardItemDataTemplateSelector}" HeightRequest="120" MinimumHeightRequest="120">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                    </CollectionView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>-->
+                </Grid>
+            </ScrollView>
+
             <!--<ScrollView Margin="0, 50, 0, 0">
                 <StackLayout>
 
