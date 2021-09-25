@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>HackerspaceApp</string>
+	<string>Hackerspace</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.vincenzolauretta.HackerspaceApp</string>
 	<key>CFBundleVersion</key>
