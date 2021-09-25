@@ -75,7 +75,7 @@ namespace HackerspaceApp.ViewModels
                             await SecureStorage.SetAsync("ApplicationConfig", Configuration);
 
                             // navigate to previous page
-                            await this.Navigation?.PopModalAsync();
+                            await this.Navigation?.PopAsync();
 
                             // reload dashboard (this should be moved to OnAppearing of DashboardPage)
                             await _dashboardViewModel.InitAsync();
@@ -101,27 +101,42 @@ namespace HackerspaceApp.ViewModels
                 {
                     _ScanConfigurationCommand = new RelayCommand(async param =>
                     {
-                        var scanner = new ZXing.Mobile.MobileBarcodeScanner();
-
-                        var result = await scanner.Scan();
-
-                        if (result != null)
+                        try
                         {
-                            var potentialCompressedJson = result.Text;
+                            PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
-                            try
+                            if (status == PermissionStatus.Denied)
                             {
-                                var potentialJson = Compression.Unzip(Convert.FromBase64String(potentialCompressedJson));
-
-                                var obj = JsonConvert.DeserializeObject(potentialJson);
-
-                                Configuration = JsonConvert.SerializeObject(obj, Formatting.Indented);
-
+                                await Application.Current.MainPage.DisplayAlert("error", "Enable Camera access permission for this app.", "ok");
+                                return;
                             }
-                            catch (Exception)
+
+                            var scanner = new ZXing.Mobile.MobileBarcodeScanner();
+
+                            var result = await scanner.Scan();
+                            
+                            if (result != null)
                             {
+                                var potentialCompressedJson = result.Text;
 
+                                try
+                                {
+                                    var potentialJson = Compression.Unzip(Convert.FromBase64String(potentialCompressedJson));
+
+                                    var obj = JsonConvert.DeserializeObject(potentialJson);
+
+                                    Configuration = JsonConvert.SerializeObject(obj, Formatting.Indented);
+
+                                }
+                                catch (Exception)
+                                {
+
+                                }
                             }
+                        }
+                        catch(Exception exc)
+                        {
+
                         }
 
                     }, param => true);
@@ -140,7 +155,7 @@ namespace HackerspaceApp.ViewModels
                 {
                     _NavigateBackCommand = new RelayCommand(async param =>
                     {
-                        await Navigation?.PopModalAsync();
+                        await Navigation?.PopAsync();
 
                     }, param => true);
                 }

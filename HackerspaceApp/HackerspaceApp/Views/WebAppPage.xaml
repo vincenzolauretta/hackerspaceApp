@@ -8,9 +8,9 @@
              Visual="Material">
     <ContentPage.Content>
         <Grid BackgroundColor="Black" HorizontalOptions="Fill">
-            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="50" HeightRequest="50" Margin="0">
+            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="60" HeightRequest="60" Margin="0">
                 <StackLayout Orientation="Horizontal" Margin="5, 0, 0, 0">
-                    <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="15" HeightRequest="30" MinimumHeightRequest="30" WidthRequest="30" MinimumWidthRequest="30" HorizontalOptions="Start" VerticalOptions="Center">
+                    <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="20" HeightRequest="40" MinimumHeightRequest="40" WidthRequest="40" MinimumWidthRequest="40" HorizontalOptions="Start" VerticalOptions="Center">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding NavigateBackCommand}"/>
                         </Frame.GestureRecognizers>

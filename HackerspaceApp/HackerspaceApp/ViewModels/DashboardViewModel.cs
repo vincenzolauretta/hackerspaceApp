@@ -315,7 +315,7 @@ namespace HackerspaceApp.ViewModels
                 {
                     _EditConfigurationCommand = new RelayCommand(async param =>
                     {
-                        await this.Navigation?.PushModalAsync(new AppConfigPage(this));
+                        await this.Navigation?.PushAsync(new AppConfigPage(this));
 
                     }, param => true);
                 }

@@ -64,11 +64,13 @@ namespace HackerspaceApp.ViewModels
                 {
                     await Task.Delay(WebApp.AutoRefresh * 1000);
 
-                    if (taskGuid != SessionGuid)
+                    if (taskGuid == SessionGuid)
+                    {
+                        this.Url = null;
+                        this.Url = WebApp?.Url;
+                    }
+                    else
                         break;
-
-                    this.Url = null;
-                    this.Url = WebApp?.Url;
                 }
             }
         }
