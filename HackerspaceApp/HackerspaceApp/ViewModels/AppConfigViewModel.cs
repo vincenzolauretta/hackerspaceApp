@@ -105,10 +105,14 @@ namespace HackerspaceApp.ViewModels
                         {
                             PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
-                            if (status == PermissionStatus.Denied)
+                            // only for iOS, in android it seems it request for permission every time
+                            if (Device.RuntimePlatform == Device.iOS)
                             {
-                                await Application.Current.MainPage.DisplayAlert("error", "Enable Camera access permission for this app.", "ok");
-                                return;
+                                if (status == PermissionStatus.Denied)
+                                {
+                                    await Application.Current.MainPage.DisplayAlert("error", "Enable Camera access permission for this app.", "ok");
+                                    return;
+                                }
                             }
 
                             var scanner = new ZXing.Mobile.MobileBarcodeScanner();
