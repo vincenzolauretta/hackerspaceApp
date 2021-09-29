@@ -91,12 +91,12 @@ namespace HackerspaceApp.ViewModels
                 {
                     var id = item.Id;
 
-                    var socialObj = appConfig.SocialFeeds.FirstOrDefault(z => z.Id == id);
+                    //var socialObj = appConfig.SocialFeeds.FirstOrDefault(z => z.Id == id);
 
-                    if (socialObj != null)
-                    {
-                        g.Items.Add(socialObj);
-                    }
+                    //if (socialObj != null)
+                    //{
+                    //    g.Items.Add(socialObj);
+                    //}
 
                     var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
 
@@ -106,7 +106,6 @@ namespace HackerspaceApp.ViewModels
                     }
                 }
             }
-
         }
 
         private ApplicationConfigModel CreateDefaultConfiguration()
@@ -119,105 +118,50 @@ namespace HackerspaceApp.ViewModels
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "News",
-                Id = "twitter",
-                Title = "Twitter"
+                Id = "twitter"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
+                Id = "cam"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
+                Id = "faq"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
+                Id = "location"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
+                Id = "membership"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Space",
-                Id = "cam",
-                Title = "Cam"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Space",
-                Id = "site",
-                Title = "Hackerspace"
+                Id = "site"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Printers",
-                Id = "dymo",
-                Title = "Dymo Printer"
+                Id = "dymo"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Useful links",
-                Id = "google",
-                Title = "Google"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Useful links2",
-                Id = "google",
-                Title = "Google"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Useful links3",
-                Id = "google",
-                Title = "Google"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Useful links4",
-                Id = "google",
-                Title = "Google"
-            });
-            config.DashboardItems.Add(new DashboardItemModel()
-            {
-                GroupName = "Useful links5",
-                Id = "google",
-                Title = "Google"
+                Id = "google"
             });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Test",
-                Id = "selfsigned",
-                Title = "Self-signed certificate"
+                Id = "selfsigned"
             });
+
+
 
             config.WebApps.Add(new WebAppConfigModel()
             {
@@ -235,9 +179,43 @@ namespace HackerspaceApp.ViewModels
 
             config.WebApps.Add(new WebAppConfigModel()
             {
+                Id = "faq",
+                Title = "FAQ",
+                Url = "https://hackerspace.sg/faq/",
+                HideCssClassesOrId = new List<string>()
+                {
+                    "navbar",
+                    "jumbotron"
+                }
+            });
+            config.WebApps.Add(new WebAppConfigModel()
+            {
+                Id = "location",
+                Title = "Location",
+                Url = "https://hackerspace.sg/location/",
+                HideCssClassesOrId = new List<string>()
+                {
+                    "navbar",
+                    "jumbotron"
+                }
+            });
+            config.WebApps.Add(new WebAppConfigModel()
+            {
+                Id = "membership",
+                Title = "Membership",
+                Url = "https://hackerspace.sg/membership/",
+                HideCssClassesOrId = new List<string>()
+                {
+                    "navbar",
+                    "jumbotron"
+                }
+            });
+            config.WebApps.Add(new WebAppConfigModel()
+            {
                 Id = "site",
                 Title = "Hackerspace",
-                Url = "https://hackerspace.sg"
+                Url = "https://hackerspace.sg",
+                LaunchInBrowser = true
             });
 
             config.WebApps.Add(new WebAppConfigModel()
@@ -252,14 +230,20 @@ namespace HackerspaceApp.ViewModels
                 Title = "Self Signed",
                 Url = "https://self-signed.badssl.com"
             });
-
-            config.SocialFeeds.Add(new SocialFeedConfigModel()
+            config.WebApps.Add(new WebAppConfigModel()
             {
                 Id = "twitter",
                 Title = "Twitter",
-                SocialNetwork = "twitter",
                 Url = "https://twitter.com/hackerspacesg"
             });
+
+            //config.SocialFeeds.Add(new SocialFeedConfigModel()
+            //{
+            //    Id = "twitter",
+            //    Title = "Twitter",
+            //    SocialNetwork = "twitter",
+            //    Url = "https://twitter.com/hackerspacesg"
+            //});
 
             return config;
         }
@@ -272,11 +256,18 @@ namespace HackerspaceApp.ViewModels
             {
                 if (_OpenWebViewCommand == null)
                 {
-                    _OpenWebViewCommand = new RelayCommand(param =>
+                    _OpenWebViewCommand = new RelayCommand(async param =>
                     {
                         var webApp = param as WebAppConfigModel;
 
-                        this.Navigation?.PushModalAsync(new WebAppPage(webApp));
+                        if (webApp.LaunchInBrowser)
+                        {
+                            await Browser.OpenAsync(webApp.Url, BrowserLaunchMode.SystemPreferred);
+                        }
+                        else
+                        {
+                            this.Navigation?.PushModalAsync(new WebAppPage(webApp));
+                        }
 
                     }, param => true);
                 }

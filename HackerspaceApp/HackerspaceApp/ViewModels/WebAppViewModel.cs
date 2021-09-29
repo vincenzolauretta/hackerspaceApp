@@ -75,6 +75,11 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+        public List<string> GetClassesOrIdToHide()
+        {
+            return WebApp.HideCssClassesOrId;
+        }
+
         public void UnloadResources()
         {
             SessionGuid = null;

@@ -25,7 +25,7 @@
                 </StackLayout>-->
             </Grid>
 
-            <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding Url}" Margin="5, 70, 5, 5"/>
+            <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding Url}" Margin="5, 70, 5, 5" Navigated="hybridWebView_Navigated"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

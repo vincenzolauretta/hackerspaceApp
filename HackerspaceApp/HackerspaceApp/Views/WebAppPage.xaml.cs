@@ -66,5 +66,33 @@ namespace HackerspaceApp.Views
             App.AppOnResume -= App_AppOnResume;
             App.AppOnSleep -= App_AppOnSleep;
         }
+
+        private async void hybridWebView_Navigated(object sender, WebNavigatedEventArgs e)
+        {
+            // hide some Css Classes or Id to reuse website pages as mobile app pages
+
+            var classesOrIdToHide = (this.BindingContext as WebAppViewModel).GetClassesOrIdToHide();
+
+            if (classesOrIdToHide != null)
+            {
+                var webView = sender as WebView; // ommitting the null check, since nobody else will call this method
+
+                foreach (var item in classesOrIdToHide)
+                {
+                    string scriptForId = $"document.getElementById('{item}').style.display = 'none';";
+
+                    await webView.EvaluateJavaScriptAsync(scriptForId);
+
+                    string scriptForClasses = $"var objectsToRemove = document.getElementsByClassName('{item}');" +
+                                    "for (var i = 0; i < objectsToRemove.length; i ++) {" +
+                                    "    objectsToRemove[i].style.display = 'none';" +
+                                    "}";
+
+                    await webView.EvaluateJavaScriptAsync(scriptForClasses);
+                }
+            }
+
+
+        }
     }
 }
