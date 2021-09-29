@@ -11,12 +11,14 @@ namespace HackerspaceApp.Models
         public List<DashboardItemModel> DashboardItems { get; set; }
         public List<WebAppConfigModel> WebApps { get; set; }
         public List<WebHookConfigModel> WebHooks { get; set; }
+        public List<SocialFeedConfigModel> SocialFeeds { get; set; }
 
         public ApplicationConfigModel()
         {
             DashboardItems = new List<DashboardItemModel>();
             WebApps = new List<WebAppConfigModel>();
             WebHooks = new List<WebHookConfigModel>();
+            SocialFeeds = new List<SocialFeedConfigModel>();
         }
     }
 }

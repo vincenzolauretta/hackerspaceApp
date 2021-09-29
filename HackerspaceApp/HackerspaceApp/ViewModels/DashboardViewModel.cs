@@ -91,11 +91,18 @@ namespace HackerspaceApp.ViewModels
                 {
                     var id = item.Id;
 
-                    var obj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
+                    var socialObj = appConfig.SocialFeeds.FirstOrDefault(z => z.Id == id);
 
-                    if (obj != null)
+                    if (socialObj != null)
                     {
-                        g.Items.Add(obj);
+                        g.Items.Add(socialObj);
+                    }
+
+                    var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
+
+                    if (webAppObj != null)
+                    {
+                        g.Items.Add(webAppObj);
                     }
                 }
             }
@@ -109,6 +116,12 @@ namespace HackerspaceApp.ViewModels
             config.SplashLogo = "https://hackerspace.sg/imgs/banner.png";
             config.SplashBackgroundColor = "#f0f0f0";
 
+            config.DashboardItems.Add(new DashboardItemModel()
+            {
+                GroupName = "News",
+                Id = "twitter",
+                Title = "Twitter"
+            });
             config.DashboardItems.Add(new DashboardItemModel()
             {
                 GroupName = "Space",
@@ -238,6 +251,14 @@ namespace HackerspaceApp.ViewModels
                 Id = "selfsigned",
                 Title = "Self Signed",
                 Url = "https://self-signed.badssl.com"
+            });
+
+            config.SocialFeeds.Add(new SocialFeedConfigModel()
+            {
+                Id = "twitter",
+                Title = "Twitter",
+                SocialNetwork = "twitter",
+                Url = "https://twitter.com/hackerspacesg"
             });
 
             return config;

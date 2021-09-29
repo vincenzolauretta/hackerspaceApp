@@ -10,11 +10,23 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="webAppDataTemplate">
-                <Grid Padding="10" VerticalOptions="FillAndExpand" HeightRequest="140" MinimumHeightRequest="140">
+                <Grid Padding="10" VerticalOptions="FillAndExpand" HeightRequest="120" MinimumHeightRequest="120">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:DashboardViewModel}}, Path=OpenWebViewCommand}" CommandParameter="{Binding}"/>
                     </Grid.GestureRecognizers>
-                    <Frame HasShadow="False" VerticalOptions="FillAndExpand" CornerRadius="10" BackgroundColor="#3e3e3e" WidthRequest="120" MinimumWidthRequest="120" HeightRequest="140" MinimumHeightRequest="120" Margin="0" >
+                    <Frame HasShadow="False" VerticalOptions="FillAndExpand" CornerRadius="10" BackgroundColor="#3e3e3e" WidthRequest="120" MinimumWidthRequest="120" Margin="0">
+                        <StackLayout Spacing="10">
+                            <Label Text="{Binding Title}" TextColor="White" FontSize="24" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="socialFeedDataTemplate">
+                <Grid Padding="10" VerticalOptions="FillAndExpand" HeightRequest="120" MinimumHeightRequest="120">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:DashboardViewModel}}, Path=OpenSocialItemCommand}" CommandParameter="{Binding}"/>
+                    </Grid.GestureRecognizers>
+                    <Frame HasShadow="False" VerticalOptions="FillAndExpand" CornerRadius="0" BackgroundColor="#3e3e3e" WidthRequest="120" MinimumWidthRequest="120" Margin="0">
                         <StackLayout Spacing="10">
                             <Label Text="{Binding Title}" TextColor="White" FontSize="24" FontAttributes="Bold"/>
                         </StackLayout>
@@ -23,6 +35,7 @@
             </DataTemplate>
             <selector:DashboardItemDataTemplateSelector x:Key="dashboardItemDataTemplateSelector"
                                                         WebAppTemplate="{StaticResource webAppDataTemplate}"
+                                                        SocialFeedTemplate="{StaticResource socialFeedDataTemplate}"
                                                         />
         </ResourceDictionary>
     </ContentPage.Resources>
