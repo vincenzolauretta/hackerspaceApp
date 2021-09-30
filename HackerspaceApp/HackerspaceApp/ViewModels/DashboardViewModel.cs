@@ -16,6 +16,21 @@ namespace HackerspaceApp.ViewModels
 {
     public class DashboardViewModel : BaseViewModel
     {
+        bool _IsMenuVisible;
+        public bool IsMenuVisible
+        {
+            get { return _IsMenuVisible; }
+            set
+            {
+                if (_IsMenuVisible != value)
+                {
+                    _IsMenuVisible = value;
+                    OnPropertyChanged(nameof(IsMenuVisible));
+                }
+            }
+        }
+
+
         ObservableCollection<DashboardGroupViewModel> _Groups;
         public ObservableCollection<DashboardGroupViewModel> Groups
         {
@@ -335,6 +350,23 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+
+        RelayCommand _ToggleMenuCommand;
+        public ICommand ToggleMenuCommand
+        {
+            get
+            {
+                if (_ToggleMenuCommand == null)
+                {
+                    _ToggleMenuCommand = new RelayCommand(param =>
+                    {
+                        IsMenuVisible = !IsMenuVisible;
+
+                    }, param => true);
+                }
+                return _ToggleMenuCommand;
+            }
+        }
 
     }
 }

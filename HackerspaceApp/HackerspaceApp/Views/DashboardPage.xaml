@@ -43,8 +43,14 @@
         <Grid BackgroundColor="Black">
             <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="60" HeightRequest="60" Margin="0" Padding="0, 10, 0, 0">
                 <!--<Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>-->
-                <StackLayout Orientation="Horizontal" Margin="5, 0, 0, 0">
-                    <Label Margin="20, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="hackerspace" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" Margin="0, 0, 0, 0">
+                    <!--<Grid VerticalOptions="Fill" Padding="20, 0, 10, 0">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+                        </Grid.GestureRecognizers>
+                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Bars}" TextColor="White" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>-->
+                    <Label Margin="55, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="hackerspace" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0, 0, 5, 0">
@@ -138,6 +144,25 @@
 
                 </StackLayout>
             </ScrollView>-->
+
+            <Grid Margin="0, 0, 0, 0" Padding="0" IsVisible="{Binding IsMenuVisible}">
+                <Grid BackgroundColor="Black" Opacity="0.5">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <Grid BackgroundColor="Black" Margin="0, 0, 0, 0" HorizontalOptions="Start" VerticalOptions="FillAndExpand" WidthRequest="260">
+                    <CollectionView Margin="0, 70, 0, 0">
+                        
+                    </CollectionView>
+                </Grid>
+            </Grid>
+            <Grid VerticalOptions="Start" HorizontalOptions="Start" HeightRequest="60" MinimumHeightRequest="60" Padding="20, 10, 20, 0">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+                </Grid.GestureRecognizers>
+                <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Bars}" TextColor="White" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
+            </Grid>
 
         </Grid>
     </ContentPage.Content>
