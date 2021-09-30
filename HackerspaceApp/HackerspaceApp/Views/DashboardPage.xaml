@@ -50,10 +50,14 @@
                         </Grid.GestureRecognizers>
                         <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Bars}" TextColor="White" FontSize="24" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Grid>-->
-                    <Label Margin="55, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="hackerspace" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Margin="55, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="hackerspace" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
                 </StackLayout>
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0, 0, 5, 0">
+                <!--<StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0, 0, 5, 0">
                     <Frame HasShadow="False" BackgroundColor="#3e3e3e" CornerRadius="20" HeightRequest="40" MinimumHeightRequest="40" HorizontalOptions="End" VerticalOptions="Center" Padding="10, 0, 10, 0">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding EditConfigurationCommand}"/>
@@ -63,7 +67,7 @@
                             <Label FontFamily="{StaticResource OpenSansFontFamily}" Text="config" TextColor="White" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
                         </StackLayout>
                     </Frame>
-                </StackLayout>
+                </StackLayout>-->
             </Grid>
 
             <ScrollView Padding="0, 50, 0, 0" Margin="0, 70, 0, 0" VerticalOptions="FillAndExpand">
@@ -146,14 +150,29 @@
             </ScrollView>-->
 
             <Grid Margin="0, 0, 0, 0" Padding="0" IsVisible="{Binding IsMenuVisible}">
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Command="{Binding ToggleMenuCommand}"/>
+                </Grid.GestureRecognizers>
                 <Grid BackgroundColor="Black" Opacity="0.5">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
                     </Grid.GestureRecognizers>
                 </Grid>
-                <Grid BackgroundColor="Black" Margin="0, 0, 0, 0" HorizontalOptions="Start" VerticalOptions="FillAndExpand" WidthRequest="260">
-                    <CollectionView Margin="0, 70, 0, 0">
-                        
+                <Grid BackgroundColor="#3e3e3e" Margin="0, 0, 0, 0" HorizontalOptions="Start" VerticalOptions="FillAndExpand" WidthRequest="260">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+                    </Grid.GestureRecognizers>
+                    <CollectionView Margin="0, 70, 0, 0" ItemsSource="{Binding MenuItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0, 0, 0, 10" Padding="20, 0, 0, 10">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:DashboardViewModel}}, Path=MenuItemTappedCommand}" CommandParameter="{Binding}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Label Margin="0, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
                     </CollectionView>
                 </Grid>
             </Grid>

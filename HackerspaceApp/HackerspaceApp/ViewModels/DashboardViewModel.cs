@@ -30,6 +30,20 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+        ObservableCollection<MenuItemViewModel> _MenuItems;
+        public ObservableCollection<MenuItemViewModel> MenuItems
+        {
+            get { return _MenuItems; }
+            set
+            {
+                if (_MenuItems != value)
+                {
+                    _MenuItems = value;
+                    OnPropertyChanged(nameof(MenuItems));
+                }
+            }
+        }
+
 
         ObservableCollection<DashboardGroupViewModel> _Groups;
         public ObservableCollection<DashboardGroupViewModel> Groups
@@ -121,6 +135,13 @@ namespace HackerspaceApp.ViewModels
                     }
                 }
             }
+
+            MenuItems = new ObservableCollection<MenuItemViewModel>();
+            MenuItems.Add(new MenuItemViewModel()
+            {
+                Title = "Edit configuration",
+                Type = "config"
+            });
         }
 
         private ApplicationConfigModel CreateDefaultConfiguration()
@@ -333,22 +354,7 @@ namespace HackerspaceApp.ViewModels
 
 
 
-        RelayCommand _EditConfigurationCommand;
-        public ICommand EditConfigurationCommand
-        {
-            get
-            {
-                if (_EditConfigurationCommand == null)
-                {
-                    _EditConfigurationCommand = new RelayCommand(async param =>
-                    {
-                        await this.Navigation?.PushAsync(new AppConfigPage(this));
 
-                    }, param => true);
-                }
-                return _EditConfigurationCommand;
-            }
-        }
 
 
         RelayCommand _ToggleMenuCommand;
@@ -365,6 +371,35 @@ namespace HackerspaceApp.ViewModels
                     }, param => true);
                 }
                 return _ToggleMenuCommand;
+            }
+        }
+
+
+        RelayCommand _MenuItemTappedCommand;
+        public ICommand MenuItemTappedCommand
+        {
+            get
+            {
+                if (_MenuItemTappedCommand == null)
+                {
+                    _MenuItemTappedCommand = new RelayCommand(async param =>
+                    {
+                        var item = param as MenuItemViewModel;
+
+                        switch (item.Type)
+                        {
+                            case "config":
+                                {
+                                    await this.Navigation?.PushAsync(new AppConfigPage(this));
+                                }
+                                break;
+                        }
+
+                        ToggleMenuCommand.Execute(null);
+
+                    }, param => true);
+                }
+                return _MenuItemTappedCommand;
             }
         }
 
