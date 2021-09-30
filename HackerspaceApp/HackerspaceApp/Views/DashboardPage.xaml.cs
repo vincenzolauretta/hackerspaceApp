@@ -29,5 +29,12 @@ namespace HackerspaceApp.Views
 
             return true;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            (this.BindingContext as DashboardViewModel)?.ReloadConfigurationOnAppearing();
+        }
     }
 }

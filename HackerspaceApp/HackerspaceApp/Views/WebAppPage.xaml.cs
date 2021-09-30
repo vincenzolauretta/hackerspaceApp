@@ -71,7 +71,7 @@ namespace HackerspaceApp.Views
         {
             // hide some Css Classes or Id to reuse website pages as mobile app pages
 
-            var classesOrIdToHide = (this.BindingContext as WebAppViewModel).GetClassesOrIdToHide();
+            var classesOrIdToHide = (this.BindingContext as WebAppViewModel)?.GetClassesOrIdToHide();
 
             if (classesOrIdToHide != null)
             {
@@ -93,7 +93,7 @@ namespace HackerspaceApp.Views
             }
 
             // page loaded, let's disable the activity indicator
-            (this.BindingContext as WebAppViewModel).ContentLoaded();
+            (this.BindingContext as WebAppViewModel)?.ContentLoaded();
         }
     }
 }

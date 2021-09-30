@@ -59,6 +59,7 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+        private bool _reloadConfigurationOnAppearing { get; set; }
 
         public DashboardViewModel(INavigation navigation)
         {
@@ -139,7 +140,7 @@ namespace HackerspaceApp.ViewModels
             MenuItems = new ObservableCollection<MenuItemViewModel>();
             MenuItems.Add(new MenuItemViewModel()
             {
-                Title = "Edit configuration",
+                Title = "Configuration",
                 Type = "config"
             });
         }
@@ -285,6 +286,17 @@ namespace HackerspaceApp.ViewModels
         }
 
 
+        public void ReloadConfigurationOnAppearing()
+        {
+            if (_reloadConfigurationOnAppearing)
+            {
+                _reloadConfigurationOnAppearing = false;
+
+                InitAsync();
+            }
+        }
+
+
         RelayCommand _OpenWebViewCommand;
         public ICommand OpenWebViewCommand
         {
@@ -390,6 +402,8 @@ namespace HackerspaceApp.ViewModels
                         {
                             case "config":
                                 {
+                                    _reloadConfigurationOnAppearing = true;
+
                                     await this.Navigation?.PushAsync(new AppConfigPage(this));
                                 }
                                 break;

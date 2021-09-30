@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HackerspaceApp.Views.AppConfigPage"
+             x:Class="HackerspaceApp.Views.ConfigLoadUrlPage"
              xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
              NavigationPage.HasNavigationBar="False"
              Visual="Material">
@@ -15,23 +15,19 @@
                         </Frame.GestureRecognizers>
                         <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.ChevronLeft}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
-                    <Label Margin="5, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="config" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Label Margin="5, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="load config" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
                 </StackLayout>
             </Grid>
-            <ScrollView HorizontalOptions="Fill" VerticalOptions="Fill" Margin="5, 70, 5, 50">
-                <Grid>
-                    <Editor BackgroundColor="White"  Text="{Binding Configuration}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" AutoSize="TextChanges" />
-                </Grid>
-            </ScrollView>
-            <Grid HeightRequest="50" MinimumHeightRequest="50" VerticalOptions="End">
-                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
-                    <Button Text="Save" BackgroundColor="#3e3e3e" TextColor="White" Command="{Binding SaveConfigurationCommand}" VerticalOptions="End"/>
-                    <Button Text="Share" BackgroundColor="#3e3e3e" TextColor="White" Command="{Binding ShareConfigurationCommand}" VerticalOptions="End"/>
-                    <Button Text="Scan" BackgroundColor="#3e3e3e" TextColor="White" Command="{Binding ScanConfigurationCommand}" VerticalOptions="End"/>
-                    <Button Text="Url" BackgroundColor="#3e3e3e" TextColor="White" Command="{Binding LoadConfigurationFromUrlCommand}" VerticalOptions="End"/>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0, 70, 0, 50" Padding="20">
+                <StackLayout VerticalOptions="Center">
+                    <Entry Placeholder="Configuration Url" Text="{Binding Url}" Keyboard="Text" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </Grid>
-
+            <Grid HeightRequest="50" MinimumHeightRequest="50" VerticalOptions="End" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                    <Button BackgroundColor="#3e3e3e" TextColor="White" Text="Load configuration" Command="{Binding LoadConfigurationCommand}" HorizontalOptions="End"/>
+                </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

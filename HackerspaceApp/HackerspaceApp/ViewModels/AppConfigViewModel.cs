@@ -76,9 +76,6 @@ namespace HackerspaceApp.ViewModels
 
                             // navigate to previous page
                             await this.Navigation?.PopAsync();
-
-                            // reload dashboard (this should be moved to OnAppearing of DashboardPage)
-                            await _dashboardViewModel.InitAsync();
                         }
                         catch (Exception)
                         {
@@ -182,6 +179,24 @@ namespace HackerspaceApp.ViewModels
                     }, param => true);
                 }
                 return _ShareConfigurationCommand;
+            }
+        }
+
+
+        RelayCommand _LoadConfigurationFromUrlCommand;
+        public ICommand LoadConfigurationFromUrlCommand
+        {
+            get
+            {
+                if (_LoadConfigurationFromUrlCommand == null)
+                {
+                    _LoadConfigurationFromUrlCommand = new RelayCommand(async param =>
+                    {
+                        await Navigation?.PushModalAsync(new ConfigLoadUrlPage(this));
+
+                    }, param => true);
+                }
+                return _LoadConfigurationFromUrlCommand;
             }
         }
 
