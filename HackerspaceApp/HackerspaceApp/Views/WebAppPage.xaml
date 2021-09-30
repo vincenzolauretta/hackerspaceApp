@@ -26,6 +26,9 @@
             </Grid>
 
             <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding Url}" Margin="5, 70, 5, 5" Navigated="hybridWebView_Navigated"/>
+            <Grid Margin="0, 70, 0, 0" BackgroundColor="White" IsVisible="{Binding IsBusy}">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="Gray" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="50" MinimumWidthRequest="50" HeightRequest="50" MinimumHeightRequest="50"/>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

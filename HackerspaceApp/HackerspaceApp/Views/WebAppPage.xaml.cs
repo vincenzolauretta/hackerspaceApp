@@ -92,7 +92,8 @@ namespace HackerspaceApp.Views
                 }
             }
 
-
+            // page loaded, let's disable the activity indicator
+            (this.BindingContext as WebAppViewModel).ContentLoaded();
         }
     }
 }

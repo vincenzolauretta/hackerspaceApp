@@ -45,6 +45,8 @@ namespace HackerspaceApp.ViewModels
         {
             this.Navigation = navigation;
 
+            IsBusy = true;
+
             WebApp = webAppConfig;
 
             InitAsync();
@@ -78,6 +80,11 @@ namespace HackerspaceApp.ViewModels
         public List<string> GetClassesOrIdToHide()
         {
             return WebApp.HideCssClassesOrId;
+        }
+
+        public void ContentLoaded()
+        {
+            IsBusy = false;
         }
 
         public void UnloadResources()
