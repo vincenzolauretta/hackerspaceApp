@@ -143,6 +143,11 @@ namespace HackerspaceApp.ViewModels
                 Title = "Configuration",
                 Type = "config"
             });
+            MenuItems.Add(new MenuItemViewModel()
+            {
+                Title = "About",
+                Type = "about_app"
+            });
         }
 
         private ApplicationConfigModel CreateDefaultConfiguration()
@@ -405,6 +410,11 @@ namespace HackerspaceApp.ViewModels
                                     _reloadConfigurationOnAppearing = true;
 
                                     await this.Navigation?.PushAsync(new AppConfigPage(this));
+                                }
+                                break;
+                            case "about_app":
+                                {
+                                    await this.Navigation?.PushModalAsync(new AboutAppPage());
                                 }
                                 break;
                         }
