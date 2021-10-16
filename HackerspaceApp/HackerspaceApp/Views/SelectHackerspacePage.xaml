@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HackerspaceApp.Views.SelectHackerspacePage"
+             xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
+             xmlns:local="clr-namespace:HackerspaceApp.ViewModels"
+             NavigationPage.HasNavigationBar="False"
+             Visual="Material">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Black">
+            <Grid VerticalOptions="Start" HorizontalOptions="Fill" MinimumHeightRequest="60" HeightRequest="60" Margin="0" Padding="0, 10, 0, 0">
+                <StackLayout Orientation="Horizontal" Margin="5, 0, 0, 0">
+                    <Frame HasShadow="False" BackgroundColor="#3e3e3e" Padding="0" CornerRadius="20" HeightRequest="40" MinimumHeightRequest="40" WidthRequest="40" MinimumWidthRequest="40" HorizontalOptions="Start" VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateBackCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.ChevronLeft}" TextColor="White" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                    <Label Margin="5, 0, 0, 0" FontFamily="{StaticResource OpenSansFontFamily}" Text="Hackerspaces" FontSize="28" FontAttributes="Bold" TextColor="White" HorizontalOptions="Start" VerticalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+            <Grid Margin="0, 80, 0, 0">
+                <CollectionView ItemsSource="{Binding HackerspacesItems}" Margin="20, 0, 20, 0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Grid Margin="10, 5, 10, 5">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:SelectHackerspaceViewModel}}, Path=HackerspaceTappedCommand}" CommandParameter="{Binding}"/>
+                                    </Grid.GestureRecognizers>
+                                    <StackLayout Orientation="Horizontal" Spacing="15">
+                                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Building}" TextColor="White" FontSize="24" HorizontalOptions="Center" VerticalOptions="Start"/>
+                                        <Label Text="{Binding Name}" TextColor="White" FontSize="20" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </Grid>
+                                <Rectangle BackgroundColor="Gray" HeightRequest="1" MinimumHeightRequest="1" HorizontalOptions="FillAndExpand" Margin="40, 0, 10, 10" VerticalOptions="End"/>
+                            </StackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+                <!--<ScrollView Margin="0, 70, 0, 0" Padding="15, 20, 15, 20">
+                <StackLayout>
+
+                </StackLayout>
+            </ScrollView>-->
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

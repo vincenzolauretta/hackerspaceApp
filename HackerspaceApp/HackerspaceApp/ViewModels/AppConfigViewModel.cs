@@ -28,12 +28,10 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
-        private DashboardViewModel _dashboardViewModel { get; set; }
 
-        public AppConfigViewModel(INavigation navigation, DashboardViewModel dashboardViewModel)
+        public AppConfigViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
-            _dashboardViewModel = dashboardViewModel;
 
             InitAsync();
         }
@@ -65,6 +63,12 @@ namespace HackerspaceApp.ViewModels
                             }
 
                             // fixing null lists
+                            if (appConfig.DashboardItems == null)
+                                appConfig.DashboardItems = new List<DashboardItemModel>();
+
+                            if (appConfig.PinnedItems == null)
+                                appConfig.PinnedItems = new List<DashboardItemModel>();
+
                             if (appConfig.WebApps == null)
                                 appConfig.WebApps = new List<WebAppConfigModel>();
 

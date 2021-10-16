@@ -17,7 +17,7 @@ namespace HackerspaceApp.Views
         {
             InitializeComponent();
 
-            this.BindingContext = new AboutAppViewModel();
+            this.BindingContext = new AboutAppViewModel(this.Navigation);
         }
     }
 }

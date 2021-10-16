@@ -1,16 +1,33 @@
 ﻿using HackerspaceApp.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace HackerspaceApp.ViewModels
 {
     public class WebAppViewModel : BaseViewModel
     {
+        bool _IsPinned;
+        public bool IsPinned
+        {
+            get { return _IsPinned; }
+            set
+            {
+                if (_IsPinned != value)
+                {
+                    _IsPinned = value;
+                    OnPropertyChanged(nameof(IsPinned));
+                }
+            }
+        }
+
         WebAppConfigModel _WebApp;
         public WebAppConfigModel WebApp
         {
@@ -54,6 +71,8 @@ namespace HackerspaceApp.ViewModels
 
         public async Task InitAsync()
         {
+            this.IsPinned = WebApp.IsPinned;
+
             this.Url = WebApp.Url;
 
             if (WebApp.AutoRefresh > 0)
@@ -92,6 +111,72 @@ namespace HackerspaceApp.ViewModels
             SessionGuid = null;
             this.Url = null;
         }
+
+
+        RelayCommand _PinDashboardItemCommand;
+        public ICommand PinDashboardItemCommand
+        {
+            get
+            {
+                if (_PinDashboardItemCommand == null)
+                {
+                    _PinDashboardItemCommand = new RelayCommand(async param =>
+                    {
+                        string configJson = await SecureStorage.GetAsync("ApplicationConfig");
+
+                        ApplicationConfigModel appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
+
+                        var pinnedItem = appConfig.PinnedItems.FirstOrDefault(z => z.Id == WebApp.Id);
+
+                        if (pinnedItem == null) // pin
+                        {
+                            IsPinned = true;
+
+                            appConfig.PinnedItems.Add(new DashboardItemModel()
+                            {
+                                Id = WebApp.Id
+                            });
+                        }
+                        else // unpin
+                        {
+                            IsPinned = false;
+
+                            appConfig.PinnedItems.Remove(pinnedItem);
+                        }
+
+                        configJson = JsonConvert.SerializeObject(appConfig, Formatting.Indented);
+
+                        // save config
+                        await SecureStorage.SetAsync("ApplicationConfig", configJson);
+
+                        //await InitAsync();
+
+                        WebApp?.TriggerPinnedStatusChangedEvent();
+                    }, param => true);
+                }
+                return _PinDashboardItemCommand;
+            }
+        }
+
+
+        RelayCommand _RefreshPageCommand;
+        public ICommand RefreshPageCommand
+        {
+            get
+            {
+                if (_RefreshPageCommand == null)
+                {
+                    _RefreshPageCommand = new RelayCommand(param =>
+                    {
+                        this.Url = null;
+                        this.Url = WebApp?.Url;
+
+                    }, param => true);
+                }
+                return _RefreshPageCommand;
+            }
+        }
+
 
 
         RelayCommand _NavigateBackCommand;

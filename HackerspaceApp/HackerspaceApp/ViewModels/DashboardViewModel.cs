@@ -72,9 +72,9 @@ namespace HackerspaceApp.ViewModels
         {
             string configJson = null;
 
-#if !DEBUG
+//#if !DEBUG
             configJson = await SecureStorage.GetAsync("ApplicationConfig");
-#endif
+//#endif
 
             if (string.IsNullOrWhiteSpace(configJson))
             {
@@ -100,6 +100,31 @@ namespace HackerspaceApp.ViewModels
 
             Groups = new ObservableCollection<DashboardGroupViewModel>();
 
+            // pinned items
+            if (appConfig.PinnedItems.Count > 0)
+            {
+                var pinnedGroup = new DashboardGroupViewModel()
+                {
+                    Title = "Pinned",
+                    IsFavourites = true
+                };
+
+                Groups.Add(pinnedGroup);
+
+                foreach (var item in appConfig.PinnedItems)
+                {
+                    var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == item.Id);
+
+                    if (webAppObj != null)
+                    {
+                        webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
+
+                        pinnedGroup.Items.Add(webAppObj);
+                    }
+                }
+            }
+
+            // all other items
             var dashboardItemsGroups = appConfig.DashboardItems
                 .Select(z => z.GroupName)
                 .Distinct();
@@ -132,6 +157,8 @@ namespace HackerspaceApp.ViewModels
 
                     if (webAppObj != null)
                     {
+                        webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
+
                         g.Items.Add(webAppObj);
                     }
                 }
@@ -139,6 +166,10 @@ namespace HackerspaceApp.ViewModels
 
             MenuItems = new ObservableCollection<MenuItemViewModel>();
             MenuItems.Add(new MenuItemViewModel()
+            {
+                Title = "Select Hackerspace",
+                Type = "select_hackerspace"
+            }); MenuItems.Add(new MenuItemViewModel()
             {
                 Title = "Configuration",
                 Type = "config"
@@ -313,6 +344,9 @@ namespace HackerspaceApp.ViewModels
                     {
                         var webApp = param as WebAppConfigModel;
 
+                        webApp.PinnedStatusChanged -= WebApp_PinnedStatusChanged;
+                        webApp.PinnedStatusChanged += WebApp_PinnedStatusChanged;
+
                         if (webApp.LaunchInBrowser)
                         {
                             await Browser.OpenAsync(webApp.Url, BrowserLaunchMode.SystemPreferred);
@@ -328,6 +362,10 @@ namespace HackerspaceApp.ViewModels
             }
         }
 
+        private void WebApp_PinnedStatusChanged(object sender, EventArgs e)
+        {
+            _reloadConfigurationOnAppearing = true;
+        }
 
         RelayCommand _RunWebHookCommand;
         public ICommand RunWebHookCommand
@@ -371,9 +409,6 @@ namespace HackerspaceApp.ViewModels
 
 
 
-
-
-
         RelayCommand _ToggleMenuCommand;
         public ICommand ToggleMenuCommand
         {
@@ -409,7 +444,14 @@ namespace HackerspaceApp.ViewModels
                                 {
                                     _reloadConfigurationOnAppearing = true;
 
-                                    await this.Navigation?.PushAsync(new AppConfigPage(this));
+                                    await this.Navigation?.PushAsync(new AppConfigPage());
+                                }
+                                break;
+                            case "select_hackerspace":
+                                {
+                                    _reloadConfigurationOnAppearing = true;
+
+                                    await this.Navigation?.PushModalAsync(new SelectHackerspacePage());
                                 }
                                 break;
                             case "about_app":

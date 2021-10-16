@@ -4,6 +4,7 @@
              x:Class="HackerspaceApp.Views.WebAppPage"
              xmlns:hwv="clr-namespace:HackerspaceApp.Helpers.HybridWebView"
              xmlns:fonts="clr-namespace:HackerspaceApp.Helpers"
+             xmlns:local="clr-namespace:HackerspaceApp.ViewModels"
              NavigationPage.HasNavigationBar="False"
              Visual="Material">
     <ContentPage.Content>
@@ -23,6 +24,29 @@
                     <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="hackerspace/" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <Label FontFamily="{StaticResource CrackedCodeFontFamily}" TextTransform="Uppercase" Text="{Binding WebApp.Title}" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </StackLayout>-->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10" Margin="0, 0, 10, 0">
+                    <Grid>
+                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.SyncAlt}" TextColor="Gray" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RefreshPageCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                    <Grid>
+                        <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Star}" TextColor="Gray" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PinDashboardItemCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label IsVisible="{Binding IsPinned}" FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Star}" TextColor="Yellow" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PinDashboardItemCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+
+                </StackLayout>
             </Grid>
 
             <hwv:HybridWebView x:Name="hybridWebView" Source="{Binding Url}" Margin="5, 70, 5, 5" Navigated="hybridWebView_Navigated"/>

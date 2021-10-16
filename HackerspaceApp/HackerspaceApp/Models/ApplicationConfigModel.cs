@@ -8,6 +8,8 @@ namespace HackerspaceApp.Models
     {
         public string SplashBackgroundColor { get; set; }
         public string SplashLogo { get; set; }
+        public string SpaceApiUrl { get; set; }
+        public List<DashboardItemModel> PinnedItems { get; set; }
         public List<DashboardItemModel> DashboardItems { get; set; }
         public List<WebAppConfigModel> WebApps { get; set; }
         public List<WebHookConfigModel> WebHooks { get; set; }
@@ -15,6 +17,7 @@ namespace HackerspaceApp.Models
 
         public ApplicationConfigModel()
         {
+            PinnedItems = new List<DashboardItemModel>();
             DashboardItems = new List<DashboardItemModel>();
             WebApps = new List<WebAppConfigModel>();
             WebHooks = new List<WebHookConfigModel>();

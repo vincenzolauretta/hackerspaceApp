@@ -7,6 +7,20 @@ namespace HackerspaceApp.ViewModels
 {
     public class DashboardGroupViewModel : BaseViewModel
     {
+        bool _IsFavourites;
+        public bool IsFavourites
+        {
+            get { return _IsFavourites; }
+            set
+            {
+                if (_IsFavourites != value)
+                {
+                    _IsFavourites = value;
+                    OnPropertyChanged(nameof(IsFavourites));
+                }
+            }
+        }
+
         public string Title { get; set; }
 
         ObservableCollection<object> _Items;

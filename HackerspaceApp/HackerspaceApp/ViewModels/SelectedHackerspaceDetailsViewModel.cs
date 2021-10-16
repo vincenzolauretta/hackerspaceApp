@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HackerspaceApp.Models;
+using HackerspaceApp.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,19 +9,24 @@ using Xamarin.Forms;
 
 namespace HackerspaceApp.ViewModels
 {
-    public class AboutAppViewModel : BaseViewModel
+    public class SelectedHackerspaceDetailsViewModel : BaseViewModel
     {
+        private HackerspaceItemModel _hackerspaceItem;
+        private SpaceApiRepository _spaceApiRepository;
 
-        public AboutAppViewModel(INavigation navigation)
+        public SelectedHackerspaceDetailsViewModel(INavigation navigation, HackerspaceItemModel hackerspaceItem)
         {
             this.Navigation = navigation;
+            _hackerspaceItem = hackerspaceItem;
 
             InitAsync();
         }
 
-        public async Task InitAsync()
+        async Task InitAsync()
         {
+            _spaceApiRepository = new SpaceApiRepository(_hackerspaceItem.SpaceApiUrl);
 
+            await _spaceApiRepository.LoadJson();
         }
 
 

@@ -10,12 +10,12 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="webAppDataTemplate">
-                <Grid Padding="10" VerticalOptions="FillAndExpand" HeightRequest="120" MinimumHeightRequest="120">
+                <Grid Padding="0" Margin="0" VerticalOptions="FillAndExpand" HeightRequest="100" MinimumHeightRequest="100">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:DashboardViewModel}}, Path=OpenWebViewCommand}" CommandParameter="{Binding}"/>
                     </Grid.GestureRecognizers>
-                    <Frame HasShadow="False" VerticalOptions="FillAndExpand" CornerRadius="10" BackgroundColor="#3e3e3e" WidthRequest="120" MinimumWidthRequest="120" Margin="0">
-                        <StackLayout Spacing="10">
+                    <Frame HasShadow="False" VerticalOptions="FillAndExpand" CornerRadius="10" BackgroundColor="#3e3e3e" WidthRequest="160" MinimumWidthRequest="120" Margin="0, 0, 10, 0" Padding="0">
+                        <StackLayout Spacing="10" Margin="10">
                             <Label Text="{Binding Title}" TextColor="White" FontSize="24" FontAttributes="Bold"/>
                         </StackLayout>
                     </Frame>
@@ -76,8 +76,13 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Margin="0, 0, 0, 20" Spacing="0">
-                                    <Label Text="{Binding Title}" TextColor="White" FontSize="18" Margin="15, 0, 0, 0" />
-                                    <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{StaticResource dashboardItemDataTemplateSelector}" HeightRequest="120" MinimumHeightRequest="120">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Title}" TextColor="White" FontSize="18" Margin="15, 0, 0, 0" />
+                                        <Grid Margin="0, 0, 0, 0" IsVisible="{Binding IsFavourites}">
+                                            <Label FontFamily="{StaticResource FontAwesomeFontFamily}" Text="{x:Static fonts:IconFont.Star}" TextColor="Yellow" FontSize="18" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                    <CollectionView ItemsSource="{Binding Items}" ItemTemplate="{StaticResource dashboardItemDataTemplateSelector}" HeightRequest="100" MinimumHeightRequest="100" Margin="10, 10, 0, 0">
                                         <CollectionView.ItemsLayout>
                                             <LinearItemsLayout Orientation="Horizontal" />
                                         </CollectionView.ItemsLayout>

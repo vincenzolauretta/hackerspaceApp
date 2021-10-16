@@ -6,22 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace HackerspaceApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppConfigPage : ContentPage
+    public partial class SelectHackerspacePage : ContentPage
     {
-        public AppConfigPage()
+        public SelectHackerspacePage()
         {
             InitializeComponent();
 
-            On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
-
-            this.BindingContext = new AppConfigViewModel(this.Navigation);
+            this.BindingContext = new SelectHackerspaceViewModel(this.Navigation);
         }
-
     }
 }
