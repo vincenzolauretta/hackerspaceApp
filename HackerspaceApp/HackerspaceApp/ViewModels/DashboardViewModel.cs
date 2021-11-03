@@ -190,7 +190,7 @@ namespace HackerspaceApp.ViewModels
 
             config.DashboardItems.Add(new DashboardItemModel()
             {
-                GroupName = "News",
+                GroupName = "Social",
                 Id = "twitter"
             });
             config.DashboardItems.Add(new DashboardItemModel()
