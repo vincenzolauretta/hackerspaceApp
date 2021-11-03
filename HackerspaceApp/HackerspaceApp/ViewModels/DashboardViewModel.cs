@@ -70,115 +70,122 @@ namespace HackerspaceApp.ViewModels
 
         public async Task InitAsync()
         {
-            string configJson = null;
-
-//#if !DEBUG
-            configJson = await SecureStorage.GetAsync("ApplicationConfig");
-//#endif
-
-            if (string.IsNullOrWhiteSpace(configJson))
+            try
             {
-                var config = this.CreateDefaultConfiguration();
+                string configJson = null;
 
-                configJson = JsonConvert.SerializeObject(config, Formatting.Indented);
+                //#if !DEBUG
+                configJson = await SecureStorage.GetAsync("ApplicationConfig");
+                //#endif
 
-                await SecureStorage.SetAsync("ApplicationConfig", configJson);
-            }
-
-            ApplicationConfigModel appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
-
-            if (appConfig == null) // probably empty json
-            {
-                var config = this.CreateDefaultConfiguration();
-
-                configJson = JsonConvert.SerializeObject(config, Formatting.Indented);
-
-                await SecureStorage.SetAsync("ApplicationConfig", configJson);
-
-                appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
-            }
-
-            Groups = new ObservableCollection<DashboardGroupViewModel>();
-
-            // pinned items
-            if (appConfig.PinnedItems.Count > 0)
-            {
-                var pinnedGroup = new DashboardGroupViewModel()
+                if (string.IsNullOrWhiteSpace(configJson))
                 {
-                    Title = "Pinned",
-                    IsFavourites = true
-                };
+                    var config = this.CreateDefaultConfiguration();
 
-                Groups.Add(pinnedGroup);
+                    configJson = JsonConvert.SerializeObject(config, Formatting.Indented);
 
-                foreach (var item in appConfig.PinnedItems)
+                    await SecureStorage.SetAsync("ApplicationConfig", configJson);
+                }
+
+                ApplicationConfigModel appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
+
+                if (appConfig == null) // probably empty json
                 {
-                    var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == item.Id);
+                    var config = this.CreateDefaultConfiguration();
 
-                    if (webAppObj != null)
+                    configJson = JsonConvert.SerializeObject(config, Formatting.Indented);
+
+                    await SecureStorage.SetAsync("ApplicationConfig", configJson);
+
+                    appConfig = JsonConvert.DeserializeObject<ApplicationConfigModel>(configJson);
+                }
+
+                Groups = new ObservableCollection<DashboardGroupViewModel>();
+
+                // pinned items
+                if (appConfig.PinnedItems.Count > 0)
+                {
+                    var pinnedGroup = new DashboardGroupViewModel()
                     {
-                        webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
+                        Title = "Pinned",
+                        IsFavourites = true
+                    };
 
-                        pinnedGroup.Items.Add(webAppObj);
+                    Groups.Add(pinnedGroup);
+
+                    foreach (var item in appConfig.PinnedItems)
+                    {
+                        var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == item.Id);
+
+                        if (webAppObj != null)
+                        {
+                            webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
+
+                            pinnedGroup.Items.Add(webAppObj);
+                        }
                     }
                 }
-            }
 
-            // all other items
-            var dashboardItemsGroups = appConfig.DashboardItems
-                .Select(z => z.GroupName)
-                .Distinct();
+                // all other items
+                var dashboardItemsGroups = appConfig.DashboardItems
+                    .Select(z => z.GroupName)
+                    .Distinct();
 
-            foreach (var g in dashboardItemsGroups)
-            {
-                Groups.Add(new DashboardGroupViewModel()
+                foreach (var g in dashboardItemsGroups)
                 {
-                    Title = g
+                    Groups.Add(new DashboardGroupViewModel()
+                    {
+                        Title = g
+                    });
+                }
+
+                foreach (var g in Groups)
+                {
+                    var items = appConfig.DashboardItems
+                        .Where(z => z.GroupName == g.Title);
+
+                    foreach (var item in items)
+                    {
+                        var id = item.Id;
+
+                        //var socialObj = appConfig.SocialFeeds.FirstOrDefault(z => z.Id == id);
+
+                        //if (socialObj != null)
+                        //{
+                        //    g.Items.Add(socialObj);
+                        //}
+
+                        var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
+
+                        if (webAppObj != null)
+                        {
+                            webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
+
+                            g.Items.Add(webAppObj);
+                        }
+                    }
+                }
+
+                MenuItems = new ObservableCollection<MenuItemViewModel>();
+                MenuItems.Add(new MenuItemViewModel()
+                {
+                    Title = "Select Hackerspace",
+                    Type = "select_hackerspace"
+                }); MenuItems.Add(new MenuItemViewModel()
+                {
+                    Title = "Configuration",
+                    Type = "config"
+                });
+                MenuItems.Add(new MenuItemViewModel()
+                {
+                    Title = "About",
+                    Type = "about_app"
                 });
             }
-
-            foreach (var g in Groups)
+            catch(Exception exc)
             {
-                var items = appConfig.DashboardItems
-                    .Where(z => z.GroupName == g.Title);
 
-                foreach (var item in items)
-                {
-                    var id = item.Id;
-
-                    //var socialObj = appConfig.SocialFeeds.FirstOrDefault(z => z.Id == id);
-
-                    //if (socialObj != null)
-                    //{
-                    //    g.Items.Add(socialObj);
-                    //}
-
-                    var webAppObj = appConfig.WebApps.FirstOrDefault(z => z.Id == id);
-
-                    if (webAppObj != null)
-                    {
-                        webAppObj.IsPinned = appConfig.PinnedItems.FirstOrDefault(z => z.Id == webAppObj.Id) != null;
-
-                        g.Items.Add(webAppObj);
-                    }
-                }
             }
-
-            MenuItems = new ObservableCollection<MenuItemViewModel>();
-            MenuItems.Add(new MenuItemViewModel()
-            {
-                Title = "Select Hackerspace",
-                Type = "select_hackerspace"
-            }); MenuItems.Add(new MenuItemViewModel()
-            {
-                Title = "Configuration",
-                Type = "config"
-            });
-            MenuItems.Add(new MenuItemViewModel()
-            {
-                Title = "About",
-                Type = "about_app"
-            });
         }
 
         private ApplicationConfigModel CreateDefaultConfiguration()
